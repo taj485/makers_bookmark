@@ -25,3 +25,15 @@ Comment on bookmarks
 Tag bookmarks into categories
 Filter bookmarks by tag
 Users manage their bookmarks
+
+Interacting with Postgresql from irb
+
+2.6.0 :001 > require 'pg'
+ => true
+2.6.0 :002 > connection = PG.connect(dbname: 'bookmark_manager')
+ => #<PG::Connection:0x00007f88d5a2d0e0>
+2.6.0 :003 > result = connection.exec('SELECT* FROM bookmarks')
+ => #<PG::Result:0x00007f88d5a3f4c0 status=PGRES_TUPLES_OK ntuples=2 nfields=2 cmd_tuples=2>
+2.6.0 :004 > result.each {|bookmark| puts bookmark}
+{"id"=>"1", "url"=>"https://medium.com"}
+{"id"=>"2", "url"=>"https://google.com"}
