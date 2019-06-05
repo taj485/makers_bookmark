@@ -1,18 +1,28 @@
 require 'bookmark'
 
-describe '#all' do
+describe Bookmark do
 
-  it 'can display a list of bookmarks' do
-    connection = PG.connect(dbname: 'bookmark_manager')
-    # add bookmarks to the test database
-    connection.exec("INSERT INTO bookmarks (url) VALUES ('https://medium.com');")
-    connection.exec("INSERT INTO bookmarks (url) VALUES ('https://www.google.com');")
-    connection.exec("INSERT INTO bookmarks (url) VALUES ('https://twitter.com');")
+  describe '#all' do
 
-    bookmarks = Bookmark.all
+    it 'can display a list of bookmarks' do
+      connection = PG.connect(dbname: 'bookmark_manager')
+      Bookmark.create(url: "https://medium.com")
+      Bookmark.create(url: "https://google.com")
+      Bookmark.create(url: "https://twitter.com")
 
-    expect(bookmarks).to include("https://medium.com")
-    expect(bookmarks).to include("https://www.google.com")
-    expect(bookmarks).to include("https://twitter.com")
+      bookmarks = Bookmark.all
+
+      expect(bookmarks).to include("https://medium.com")
+      expect(bookmarks).to include("https://google.com")
+      expect(bookmarks).to include("https://twitter.com")
+    end
+  end
+
+  describe '#create' do
+    it 'can add new bookmarks to the list' do
+      create_bookmark = Bookmark.create("https://youtube.com")
+      bookmarks = Bookmark.all
+      expect(bookmarks).to include("https://youtube.com")
+    end
   end
 end
