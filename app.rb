@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'sinatra/base'
 require './lib/bookmark'
 
 class BookmarkManager < Sinatra::Base
-attr_reader :add_bookmark
+  attr_reader :add_bookmark
   get '/' do
-    "Bookmark Manager"
+    'Bookmark Manager'
   end
 
   get '/bookmarks' do
@@ -13,11 +15,10 @@ attr_reader :add_bookmark
   end
 
   post '/add' do
-  Bookmark.create(params[:url])
-  puts "hello"
-  redirect('/bookmarks')
+    Bookmark.create(params[:url])
+    puts 'hello'
+    redirect('/bookmarks')
   end
 
-
-  run! if app_file == $0
+  run! if app_file == $PROGRAM_NAME
 end

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'pg'
 
-p "setting up test database..."
+p 'setting up test database...'
 
 connection = PG.connect(dbname: 'bookmark_manager_test')
 
-#clear the bookmarks table
-connection.exec("TRUNCATE bookmarks;")
+# clear the bookmarks table
+connection.exec('TRUNCATE bookmarks;')
