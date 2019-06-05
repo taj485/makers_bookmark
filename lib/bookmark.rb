@@ -1,10 +1,17 @@
 require 'pg'
 
 class Bookmark
-  attr_reader :all
-
   def self.all
-    connection = PG.connect(dbname: 'bookmark_manager')
+    if ENV['ENVIRONMENT'] = "test"
+      p "@@@@"
+      p "i am running test environment"
+      connection = PG.connect(dbname: 'bookmark_manager_test')
+    else
+      p "@@@@"
+      p "i am running developemnt environment"
+      connection = PG.connect(dbname: 'bookmark_manager')
+    end
+
     result = connection.exec('SELECT * FROM bookmarks')
     result.map {|bookmark| bookmark['url']}
   end

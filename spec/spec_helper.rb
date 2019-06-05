@@ -1,4 +1,5 @@
 #require Sinatra app file
+require_relative './setup_test_database'
 require File.join(File.dirname(__FILE__), '..', 'app.rb')
 
 # Require all the testing gems
@@ -7,7 +8,8 @@ require 'capybara/rspec'
 require 'rspec'
 
 # Set the environment to "test"
-ENV['RACK_ENV'] = "test"
+ENV['ENVIRONMENT'] = 'test'
+
 
 #tell capybara to talk to BookmarkManager
 Capybara.app = BookmarkManager
